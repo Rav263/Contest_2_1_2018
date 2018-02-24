@@ -3,6 +3,9 @@
 section .bss
   a resb 1
   b resb 1
+  c resw 1
+  r1 resb 1
+  r2 resb 1
 
 section .text
 global CMAIN
@@ -24,10 +27,9 @@ CMAIN:
   SUB AL, CL
   SUB BL, DL
 
+  MOV BYTE[r1], AL
+  MOV BYTE[r2], BL
 
-  PRINT_DEC 1, AL
-  PRINT_DEC 1, BL
-  NEWLINE
 
 
   MOV BYTE[a], AL
@@ -35,12 +37,35 @@ CMAIN:
   AND BYTE[a], 0x80
 
   SHR BYTE[a], 7
-
-  MUL BYTE[a]
-  MOVZX CX, BYTE[b]
+  
+  IMUL BYTE[a]
+  
+  MOVSX CX, BYTE[b]
 
   SUB AX, CX
   SUB AX, CX
+
+  MOV WORD[c], AX
+  MOV AX, 0
+  ;FIRST PART ENDED
+  
+  MOV AL, BYTE[r2]
+
+
+  MOV BYTE[a], AL
+  MOV BYTE[b], AL
+  AND BYTE[a], 0x80
+
+  SHR BYTE[a], 7
+  
+  IMUL BYTE[a]
+  
+  MOVSX CX, BYTE[b]
+
+  SUB AX, CX
+  SUB AX, CX
+
+  ADD AX, WORD[c]
 
   PRINT_DEC 2, AX
   NEWLINE
