@@ -31,7 +31,6 @@ CMAIN:
   MOV BYTE[r2], BL
 
 
-
   MOV BYTE[a], AL
   MOV BYTE[b], AL
   AND BYTE[a], 0x80
@@ -42,10 +41,10 @@ CMAIN:
   
   MOVSX CX, BYTE[b]
 
-  SUB AX, CX
-  SUB AX, CX
+  SUB CX, AX
+  SUB CX, AX
 
-  MOV WORD[c], AX
+  MOV WORD[c], CX
   MOV AX, 0
   ;FIRST PART ENDED
   
@@ -62,12 +61,12 @@ CMAIN:
   
   MOVSX CX, BYTE[b]
 
-  SUB AX, CX
-  SUB AX, CX
+  SUB CX, AX
+  SUB CX, AX
 
-  ADD AX, WORD[c]
+  ADD CX, WORD[c]
 
-  PRINT_DEC 2, AX
+  PRINT_DEC 2, CX
   NEWLINE
 
   MOV EAX, 0
