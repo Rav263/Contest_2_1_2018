@@ -7,8 +7,8 @@ section .bss
   a22 resd 1
   b1 resd 1
   b2 resd 1
-  x resd 2
-  y resd 2
+  x resd 4
+  y resd 4
 
 
 section .text
@@ -21,44 +21,72 @@ CMAIN:
   GET_DEC 4, b1
   GET_DEC 4, b2
 
-  MOV EAX, DWORD[a11]
+  MOV EAX, DWORD[a21]
   AND EAX, DWORD[b1]
-  MOV DWORD[x], EAX
-
-  PRINT_DEC 4, [x]
-  NEWLINE
-
-  MOV EAX, DWORD[b1]
-  NOT DWORD[a11]
-  AND EAX, DWORD[a11]
-  AND EAX, DWORD[a12]
+  MOV EBX, DWORD[a11]
+  ADD EBX, DWORD[b2]
+  XOR EAX, EBX
   MOV DWORD[y], EAX
 
-  PRINT_DEC 4, [y]
-  NEWLINE
-  
-  MOV EAX, DWORD[a21]
-  AND EAX, DWORD[b2]
-  MOV DWORD[x + 4], EAX
-  
-  PRINT_DEC 4, [x + 4]
-  NEWLINE
-  
-  MOV EAX, DWORD[b2]
-  NOT DWORD[a21]
-  AND EAX, DWORD[a21]
-  AND EAX, DWORD[a22]
-  MOV DWORD[y + 4], EAX
-  
-  PRINT_DEC 4, [y + 4]
-  NEWLINE
+  ;PRINT_DEC 4, [y]
+  ;NEWLINE
 
+  MOV EBX, DWORD[b1]
+  MOV EAX, DWORD[a12]
+  AND EAX, DWORD[y]
+  XOR EAX, EBX
+  MOV DWORD[x], EAX
+
+  ;PRINT_DEC 4, [x]
+  ;NEWLINE
+
+  MOV EBX, DWORD[b2]
+  MOV EAX, DWORD[a22]
+  AND EAX, DWORD[y]
+  XOR EAX, EBX
+  MOV DWORD[x + 4], EAX
+
+  ;PRINT_DEC 4, [x + 4]
+  ;NEWLINE
+
+  MOV EAX, DWORD[a22]
+  AND EAX, DWORD[b1]
+  MOV EBX, DWORD[a12]
+  ADD EBX, DWORD[b2]
+  XOR EAX, EBX
+  MOV DWORD[x + 8], EAX
+
+  ;PRINT_DEC 4, [x + 8]
+  ;NEWLINE
+
+  MOV EBX, DWORD[b2]
+  MOV EAX, DWORD[a21]
+  AND EAX, DWORD[x + 8]
+  XOR EAX, EBX
+  MOV DWORD[y + 4], EAX
+
+  ;PRINT_DEC 4, [y + 4]
+  ;NEWLINE
+
+  MOV EBX, DWORD[b1]
+  MOV EAX, DWORD[a11]
+  AND EAX, DWORD[x + 8]
+  XOR EAX, EBX
+  MOV DWORD[y + 8], EAX
+
+  ;PRINT_DEC 4, [y + 8]
+  ;NEWLINE
+
+  
   MOV EAX, DWORD[x]
   MOV EBX, DWORD[y]
 
 
   OR EAX, DWORD[x + 4]
   OR EBX, DWORD[y + 4]
+  
+  OR EAX, DWORD[x + 8]
+  OR EBX, DWORD[y + 8]
 
   PRINT_DEC 4, EAX
   NEWLINE
